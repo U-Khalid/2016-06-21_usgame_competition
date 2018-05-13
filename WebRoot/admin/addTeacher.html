@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>增加教师</title>
+</head>
+<body>
+<form id="teacherform" method="post"   action="../uploadTeacher" enctype="multipart/form-data">
+	<div style="padding: 10px 60px 20px 60px; text-align:center; " >
+		
+			<table  border="1" align="center" bordercolor="#d1d1d1" style="border-collapse:collapse;width:800px; text-align:left;" >
+				<tr style="text-align:center">
+				<td style="display:none"><input class="easyui-textbox" name="tTeacher_ID"
+						data-options="multiline:true" style="width: 400px; height: 80px;"></input></td>
+				<td colspan="2" style="background-color:#F4F4F4;height:40px;"><strong>教师信息表</strong></td>
+				</tr>
+				
+				<tr>
+					<td class="ti">培训ID</td>
+					<td><input class="easyui-textbox" name="tSubject_ID" id="tSubject_ID"
+						data-options="multiline:true, disabled:false"
+						style="width: 400px; height: 30px;" required="required"></input>
+						<a onclick="getAllTrain()"> 查看所有培训</a>
+					</td>
+				</tr>
+				
+				
+				<tr>
+					<td class="ti">教师姓名</td>
+					<td><input class="easyui-textbox" name="tTeacher_Name"
+						data-options="multiline:true, disabled:false"
+						style="width: 400px; height: 30px;" required="required"></input></td>
+				</tr>
+				
+				<tr>
+					<td class="ti">教师性别</td>
+					<td><select class="easyui-combobox" 
+						name="tTeacher_Sex" style="width: 200px;">
+						<option value="1">男</option>
+						<option value="2">女</option>
+					</select></td>
+				</tr>
+				<tr>
+					<td class="ti">教师价格</td>
+					<td><input id="ss" class="easyui-numberspinner" style="width:200px;"   
+        				required="required" data-options="editable:true" name="tTeahcer_Price">  </td>
+				</tr>
+
+				<tr>
+					<td class="ti">教师简介</td>
+					<td><input class="easyui-textbox" value=""
+						style="width: 400px; height: 80px;" name="tTeacher_Info"
+						></td>
+				</tr>
+				
+			</table>
+			<input type="submit" value="提交" />
+	</div>
+</form>
+
+<div id="wtrain" title="培训" class="easyui-window" closed="true" style="padding: 10px 60px 20px 60px; text-align:center;width:1000px;margin:0 auto " > 
+		<table class="easyui-datagrid"  style="width:800px;" id="train" 
+		
+		data-options="align:'center',
+					title : '培训详情',
+					border:true, 
+					fitColumns:true, 
+					striped:true, 
+					singleSelect:true,
+					pagination:true,
+					toolbar:'#tb6'
+					">
+					
+			<thead>
+				<tr>
+					<th data-options="field:'tSubject_ID', width:40">编号</th>
+					<th data-options="field:'tSubject_CourseName', width:80">培训名字</th>
+				</tr>
+			</thead>
+		</table>
+		
+		<input type="submit" value="确定" onclick="getSubjectId()"/>
+</div>
+	
+<script type="text/javascript">
+function getAllTrain(){
+	$('#wtrain').window('open');
+	$('#train').datagrid(
+		'load',
+		'../TrainServlet?method=getAllTrain'
+	);
+}
+
+function getSubjectId(){
+	$("#tSubject_ID").textbox("setValue", getTrainSelect());
+	$('#wtrain').window('close');
+}
+</script>
+</body>
+</html>

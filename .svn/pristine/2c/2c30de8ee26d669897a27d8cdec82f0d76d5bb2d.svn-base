@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>增加培训机构</title>
+</head>
+<body>
+<form id="mechanismform" method="post"   action="../uploadMechanism" enctype="multipart/form-data">
+	<div style="padding: 10px 60px 20px 60px; text-align:center; " >
+		
+			<table  border="1" align="center" bordercolor="#d1d1d1" style="border-collapse:collapse;width:800px; text-align:left;" >
+				<tr style="text-align:center">
+				<td style="display:none"><input class="easyui-textbox" name="tMechanism_ID"
+						data-options="multiline:true" style="width: 400px; height: 80px;"></input></td>
+				<td colspan="2" style="background-color:#F4F4F4;height:40px;"><strong>培训机构信息表</strong></td>
+				</tr>
+				<tr>
+					<td class="ti">机构名字</td>
+					<td><input class="easyui-textbox" name="tMechanism_Name"
+						data-options="multiline:true, disabled:false"
+						style="width: 400px; height: 30px;" required="required"></input></td>
+				</tr>
+				
+				<tr>
+					<td class="ti">机构Logo(小图-510px*420px)</td>
+					<td>
+					<input type="file" name="tMechanism_PictureUrl" /><br>
+						</td>
+				</tr>
+				
+				<tr>
+					<td class="ti">培训机构联系方式</td>
+					<td><input class="easyui-textbox" value=""
+						style="width: 400px" name="tMechanism_Phone"
+						data-options="required:true"></td>
+				</tr>
+				
+				<tr>
+					<td class="ti">培训机构地址</td>
+					<td><input class="easyui-textbox" name="tMechanism_Address"
+						data-options="multiline:true, disabled:false"
+						style="width: 400px; height: 80px;" required="required"></input></td>
+				</tr>
+
+				<tr>
+					<td class="ti">培训机构详细介绍</td>
+					<td><input class="easyui-textbox" value=""
+						style="width: 400px; height: 80px;" name="tMechanism_Detail"
+						></td>
+				</tr>
+				
+			</table>
+			<input type="submit" value="提交" />
+	</div>
+</form>
+</body>
+</html>

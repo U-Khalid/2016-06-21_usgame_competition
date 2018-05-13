@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>News.html</title>
+<meta name="content-type" content="text/html; charset=UTF-8">
+</head>
+
+
+<body>
+	<style type="text/css">
+.ti {
+	background-color: #F4F4F4;
+}
+</style>
+
+<div style="padding: 10px 60px 20px 60px; text-align:center;width:1500px;margin:0 auto  "> 
+<table class="easyui-datagrid" style="width:1400px;" id="news" url="../CompetitionServlet?method=getNewsList"
+		data-options="align:'center',
+					title : '新闻列表',
+					border:true, 
+					fitColumns:true, 
+					striped:true, 
+					singleSelect:true,
+					pagination:true,
+					toolbar:'#tz'
+					"
+					>   
+    <thead>   
+        <tr>   
+            <th data-options="field:'newId', width:100">编号</th>
+            <th data-options="field:'info', width:300">信息</th>
+            <th data-options="field:'url', width:200">跳转网址</th>     
+            <th data-options="field:'state', width:100">状态(1:可用,0:已失效)</th> 
+            <th data-options="field:'operation', width:100">操作</th>   
+        </tr>   
+    </thead>   
+</table>  
+<div id="tz" style="padding:5px;height:auto">
+		<div id="window" class="easyui-window" title="新闻详情" closed="true"
+			style="width: 800px; height: 300px;">
+			<form id="Newsdetail" style="padding-top: 40px">
+				<table align="center" bordercolor="#d1d1d1" style="width: 80%">
+					
+					<tr style="text-align: center">
+						<td class="ti">信息：</td>
+						<td><input class="easyui-textbox" name="info" id="info" style="width:350px"
+							></input></td>
+					</tr>
+					<tr style="text-align: center">
+						<td class="ti">跳转网址：</td>
+						<td><input class="easyui-textbox" name="url" id="url" style="width:350px"
+							></input></td>
+					</tr>
+					<tr style="text-align: center">
+						<td class="ti">状态：</td>
+						<td>
+						<input class="easyui-textbox" name="state" id="state" style="width:350px"></input>
+						</td>
+					</tr>
+				</table><br />
+				<div style="padding: 5px; text-align: center;">
+					<a href="#" class="easyui-linkbutton" icon="icon-ok" onclick="changeNews(newsId)">ok</a> 
+				</div>
+			</form>
+		</div>
+		<div>
+			<a href="#" class="easyui-linkbutton" iconCls="icon-add" style="margin-left:10px" onclick="Addnews()">新增</a>
+	</div>
+	</div>
+	<script type="text/javascript" >
+	var newsId;
+	$('#news').datagrid({ pageSize: 30});
+	function Newsdetail(id) {
+		newsId=id;
+		$('#window').window('open');
+		$('#Newsdetail').form(
+				'load',
+				'../CompetitionServlet?method=Newsdetails&newId='
+						+ id);
+	}
+function Addnews() {
+	$('#window').window('open');
+	newsId=0;
+}
+function changeNews(newsId) {
+	var info = $('#info').textbox('getValue');
+	var url =  $('#url').textbox('getValue');
+	var state = $('#state').textbox('getValue');
+	if(newsId>=1) {
+		$('#Newsdetail').datagrid({ url:"../CompetitionServlet?method=changeNewsdetails&newsId="+newsId+"&info="+encodeURI(encodeURI(info))+"&url="+encodeURI(encodeURI(url))+"&state="+state,method:"post"});
+	//	location.reload();
+	//	$('#Newsdetail').form(
+	//			'submit', 
+	//			{    
+	//	    url:"../CompetitionServlet?method=changeNewsdetails&newsId="+newsId+"&info="+encodeURI(encodeURI(info))+"&url="+encodeURI(encodeURI(url))+"&state="+state,    
+	//	    success:function(data){ 
+	//	    	alert(data)
+	//	    }    
+	//	});  
+
+	//	$('#Newsdetail').form(
+	//			'submit',
+	//			'../CompetitionServlet?method=changeNewsdetails&newsId='+newsId);
+	}
+	else {
+		$('#Newsdetail').datagrid({ url:"../CompetitionServlet?method=addNews&info="+encodeURI(encodeURI(info))+"&url="+encodeURI(encodeURI(url))+"&state="+state,method:"post"});
+	}
+	location.reload();
+}
+</script>
+</body>
+
+</html>

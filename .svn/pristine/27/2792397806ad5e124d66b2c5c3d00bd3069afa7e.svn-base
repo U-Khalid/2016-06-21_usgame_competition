@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>增加营地</title>
+</head>
+<body>
+<form id="campform" method="post"   action="../uploadCamp" enctype="multipart/form-data">
+	<div style="padding: 10px 60px 20px 60px; text-align:center; " >
+		
+			<table  border="1" align="center" bordercolor="#d1d1d1" style="border-collapse:collapse;width:800px; text-align:left;" >
+				<tr style="text-align:center">
+				<td style="display:none"><input class="easyui-textbox" name="campId"
+						data-options="multiline:true" style="width: 400px; height: 80px;"></input></td>
+				<td colspan="3" style="background-color:#F4F4F4;height:40px;"><strong>营地信息表</strong></td>
+				</tr>
+				<tr>
+					<td class="ti">营地名字</td>
+					<td><input class="easyui-textbox" name="camp_Name"
+						data-options="multiline:true, disabled:false"
+						style="width: 400px; height: 30px;" required="required"></input></td>
+				</tr>
+			 	<tr>
+					<td class="ti">营地Logo(大图-1920px*382px)</td>
+					<td>
+					<input type="file" name="camp_BigPic" /><br>
+						</td>
+				</tr>
+				<tr>
+					<td class="ti">营地Logo(小图-510px*420px)</td>
+					<td>
+					<input type="file" name="camp_Pic" /><br>
+						</td>
+				</tr> 
+
+					<td class="ti">营地目的地</td>
+					<td><input class="easyui-textbox" name="camp_Address"
+						data-options="multiline:true, disabled:false"
+						style="width: 400px; height: 30px;" required="required"></input></td>
+				</tr>
+				<tr>
+					<td class="ti">是否放置首页</td>
+					<td><select class="easyui-combobox" name="state"
+						style="width: 200px;">
+							<option value="0">不置于首页</option>
+							<option value="1">置于首页</option>
+					</select></td>
+				</tr>
+				<tr>
+					<td class="ti">营地主题</td>
+					<td><select class="easyui-combobox" name="camp_theme"
+						style="width: 200px;">
+							<option value="1">户外扩展</option>
+							<option value="2">自然探索</option>
+							<option value="3">体育运动</option>
+							<option value="4">艺术人文</option>
+							<option value="5">科学技术</option>
+							<option value="6">军旅主题</option>
+							<option value="7">语言提升</option>
+							<option value="8">国际综合</option>
+					</select></td>
+				</tr>
+				<tr>
+					<td class="ti">适合学生年龄</td>
+					<td><select class="easyui-combobox" name="camp_Age"
+						style="width: 200px;">
+							<option value="1">4~6岁</option>
+							<option value="2">7~12岁</option>
+							<option value="3">13~18岁</option>
+					</select></td>
+				</tr>
+				<tr>
+					<td class="ti">营地时长</td>
+					<td><select class="easyui-combobox" name="camp_TimeLength"
+						style="width: 200px;">
+							<option value="1">1天</option>
+							<option value="2">2天</option>
+							<option value="3">3~5天</option>
+							<option value="4">6~8天</option>
+							<option value="5">9~14天</option>
+							<option value="6">15天及以上</option>
+					</select></td>
+				</tr>
+
+				<tr>
+					<td class="ti">营地开始报名时间</td>
+					<td><input class="easyui-datetimebox" value=""
+						style="width: 200px" name="camp_startTime"
+						data-options="required:true"></td>
+				</tr>
+
+
+				<tr>
+					<td class="ti">营地结束报名时间</td>
+					<td><input class="easyui-datetimebox" value=""
+						style="width: 200px" name="camp_endTime"
+						data-options="required:true"></td>
+				</tr>
+				
+				<tr>
+					<td class="ti">出发时间</td>
+					<td><input class="easyui-datetimebox" value=""
+						style="width: 200px" name="camp_goTime"
+						data-options="required:true"></td>
+				</tr>
+				<tr>
+					<td class="ti">营地费用</td>
+					<td><input id="ss" class="easyui-numberspinner" style="width:200px;"   
+        required="required" data-options="editable:true" name="camp_Money">  </td>
+				</tr>
+				<tr>
+					<td class="ti">营地特色</td>
+					<td><input class="easyui-textbox"
+						name="camp_Features" data-options="multiline:true"
+						style="width: 400px; height: 80px;"></input></td>
+				</tr>
+				<tr>
+					<td class="ti">营地介绍</td>
+					<td><input class="easyui-textbox" 
+						name="camp_Info" data-options="multiline:true"
+						style="width: 400px; height: 80px;"></input></td>
+				</tr>
+				<tr>
+					<td class="ti">日程安排</td>
+					<td><input class="easyui-textbox"
+						name="camp_Schedule" data-options="multiline:true"
+						style="width: 400px; height: 80px;"></input></td>
+				</tr>
+				<tr>
+					<td class="ti">费用说明</td>
+					<td><input class="easyui-textbox"
+						name="money_Info" data-options="multiline:true"
+						style="width: 400px; height: 80px;"></input></td>
+				</tr>
+				<tr>
+					<td class="ti">报名须知</td>
+					<td><input class="easyui-textbox"
+						name="apply_Info" data-options="multiline:true"
+						style="width: 400px; height: 80px;"></input></td>
+				</tr>
+				<tr>
+					<td class="ti">注意事项</td>
+					<td><input class="easyui-textbox"
+						name="attention_Info" data-options="multiline:true"
+						style="width: 400px; height: 80px;"></input></td>
+				</tr>
+			</table>
+			<input type="submit" value="提交" />
+	</div>
+		</form>
+		<script type="text/javascript">
+		$(document).ready(function(){
+			if(campId!=0) {
+				$('#campform').form('load', '../CampServlet?method=CampDetailById&campId='+campId);
+			}
+		})
+		</script>
+</body>
+</html>

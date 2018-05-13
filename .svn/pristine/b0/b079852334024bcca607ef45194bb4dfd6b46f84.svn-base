@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>领取准考证地址</title>
+<meta name="content-type" content="text/html; charset=UTF-8">
+<meta name="viewport"
+	content="width=device-width,initial-scale=1,user-scalable=0">
+<script type="text/javascript" src="../common/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="js/ticket.js"></script>
+<script type="text/javascript" src="../common/common.js"></script>
+<link rel="stylesheet" type="text/css" href="../common/weui.min.css">
+</head>
+<body>
+<div class="weui_media_box weui_media_text" style="background-color:white">
+ <div class="info_list">
+					<strong>准考证领取地址:</strong>
+					<p class="info_text2" id="address" style="-webkit-line-clamp: 10;"></p>
+				</div>
+			</div>
+              
+</div>
+</body>
+</html>

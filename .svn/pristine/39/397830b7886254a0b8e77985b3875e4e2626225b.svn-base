@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>报名比赛详情</title>
+<meta name="content-type" content="text/html; charset=UTF-8">
+<meta name="viewport"
+	content="width=device-width,initial-scale=1,user-scalable=0">
+<link rel="stylesheet" type="text/css" href="../common/weui.min.css">
+
+<style>
+.info_text {
+	line-height: 2em;
+	margin-left: 80px;
+	color: #373737;
+	font-size: 13px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	display: -webkit-box;
+	-webkit-box-orient: vertical;
+	-webkit-line-clamp: 2;
+}
+
+.info_list strong {
+	line-height: 2em;
+	float: left;
+}
+
+.info_list {
+	font-size: 13px;
+}
+
+.button_sp_area {
+	padding: 10px 0;
+	width: 60%;
+	margin: 0 auto;
+	text-align: justify;
+	text-justify: distribute-all-lines;
+	font-size: 0;
+}
+.weui_panel_bd{
+   padding:4%;
+}
+.weui_panel_access .weui_panel_ft {
+	color: #999;
+}
+.btn {
+	line-height: 2.3;
+	font-size: 17px;
+	padding: 0 .75em;
+	display: inline-block;
+	width:130px;
+	
+}
+.btns {
+ margin-left: 40px;
+}
+.colorbtn {
+  background-color: #ef4f4f;
+}
+</style>
+
+</head>
+<body>
+<div id="list">
+	
+</div>
+<br />
+		<div class="btns">
+		<a href="javascript:showdialog3();" class="weui_btn btn weui_btn_primary colorbtn" id="dialog1">删除订单</a>
+		<a href="javascript:topay()" class="weui_btn btn weui_btn_primary " id="dialog2" style="margin-left:30px">付款</a>
+		</div>
+<!--     <div class=button_sp_area  id="dialog1" style="display: none;">
+		<a class="weui_btn weui_btn_primary" href="javascript:topay()" onclick="topay()">付款</a>
+	</div> -->
+	
+	<div class="weui_dialog_alert" id="dialog3" style="display: none;">
+    <div class="weui_mask"></div>
+    <div class="weui_dialog">
+        <div class="weui_dialog_hd"><strong class="weui_dialog_title">订单</strong></div>
+        <div class="weui_dialog_bd">确定删除订单？</div>
+        <div class="weui_dialog_ft">
+           	<a href="javascript:;" class="weui_btn_dialog default" onclick="cancel()">取消</a>
+			<a href="javascript:;" class="weui_btn_dialog primary " onclick="deleteorder()" >确定</a>
+        </div>
+    </div>
+</div>
+<div class="weui_dialog_alert" id="dialog4" style="display: none;">
+    <div class="weui_mask"></div>
+    <div class="weui_dialog">
+        <div class="weui_dialog_hd"><strong class="weui_dialog_title">订单</strong></div>
+        <div class="weui_dialog_bd">您已成功删除订单</div>
+        <div class="weui_dialog_ft">
+			<a href="javascript:;" class="weui_btn_dialog primary" onclick="togeren()">确定</a>
+        </div>
+    </div>
+</div>
+<div class="weui_dialog_alert" id="dialog5" style="display: none;">
+    <div class="weui_mask"></div>
+    <div class="weui_dialog">
+        <div class="weui_dialog_hd"><strong class="weui_dialog_title">订单</strong></div>
+        <div class="weui_dialog_bd">删除失败！</div>
+        <div class="weui_dialog_ft">
+			<a href="javascript:;" class="weui_btn_dialog primary" onclick="toapplyreportInfo()">确定</a>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="../common/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="js/applyreportInfo.js"></script>
+</body>
+</html>

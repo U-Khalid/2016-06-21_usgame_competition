@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>gradeList.html</title>
+<meta name="content-type" content="text/html; charset=UTF-8">
+</head>
+
+
+<body>
+	<style type="text/css">
+.ti {
+	background-color: #F4F4F4;
+}
+</style>
+
+<div style="padding: 10px 60px 20px 60px; text-align:center;width:1500px;margin:0 auto  "> 
+<table class="easyui-datagrid" style="width:1400px;" id="competition" url="../CompetitionServlet?method=getgradeList"
+		data-options="align:'center',
+					title : '成绩列表',
+					border:true, 
+					fitColumns:true, 
+					striped:true, 
+					singleSelect:true,
+					pagination:true,
+					toolbar:'#tc'
+					"
+					>   
+    <thead>   
+        <tr>   
+            <th data-options="field:'competitionName', width:250">竞赛名称</th>
+            <th data-options="field:'admissionTicket', width:80">准考证号</th>
+            <th data-options="field:'competitionSubject', width:50">科目</th>     
+            <th data-options="field:'userName', width:70">姓名</th>   
+            <th data-options="field:'userGrade', width:80">年级</th>   
+            <th data-options="field:'password', width:80">查询密码</th>
+            <th data-options="field:'competitionGrade', width:60">成绩</th>
+            <th data-options="field:'promotion', width:200">晋级情况</th>
+            <th data-options="field:'award', width:150">奖项</th>
+            <th data-options="field:'note', width:200">备注</th>
+        </tr>   
+    </thead>   
+</table>  
+<div id="tc" style="padding:5px;height:auto">
+		<div>
+			比赛名称: 
+		      <form  action="../CompetitionServlet?method=exportGrade" method="post">
+				<input class="easyui-textbox" style="width:150px;" id="info" name="Info">
+				<a href="#" class="easyui-linkbutton" iconCls="icon-search" style="margin-left:30px" onclick="searchtext()">Search</a>
+			  <!--   <a href="#" class="easyui-linkbutton" iconCls="icon-print" style="margin-left:10px" onclick="Export()">导出</a> -->
+			   <input  type="submit" value="导出"/>
+			 </form>
+		     <!-- <input class="easyui-textbox" style="width:200px;" id="filepath">   -->
+		     <form action="../uploadgrade" method="post" enctype="multipart/form-data">
+			   <input type="file" name="file" /><br>
+			   <input  type="submit"   value="导入"/>
+			 </form>
+		     
+		   <!-- <input  type="file" style="width:300px;" id="filepath"/> -->
+		   <!--  <a href="#" class="easyui-linkbutton" iconCls="icon-add" style="margin-left:10px" onclick="Import()">导入</a>-->
+		   
+	</div>
+	</div>
+	<script type="text/javascript" >
+	$('#competition').datagrid({ pageSize: 30});
+
+function searchtext() {
+	var Info = $('#info').textbox('getValue');
+		$('#competition').datagrid({ url:"../CompetitionServlet?method=searchGrade&Info="+encodeURI(encodeURI(Info)),method:"post"});
+}
+
+function Export() {
+	var Info = $('#info').textbox('getValue');
+	$('#competition').datagrid({ url:"../CompetitionServlet?method=exportGrade&Info="+encodeURI(encodeURI(Info)),method:"post"});
+}
+function Import() {
+	   var filepath = $('#filepath').textbox('getValue');
+		$('#competition').datagrid({ url:"../CompetitionServlet?method=importGrade&filepath="+encodeURI(encodeURI(filepath)),method:"post"});
+       	location.reload();
+}
+</script>
+</body>
+
+</html>

@@ -1,0 +1,221 @@
+var CompetitionId;
+var competitionName;
+var competitionSubject;
+var competitionGrade;
+var money;
+var phonenumber;
+
+$(document).ready(function () {
+	getCompetitionId();
+	judgeAttention();
+});
+
+function judgeAttention() {
+	$.ajax({
+		type : "post",
+		url : "../../UserServlet",
+		data : {method : "getUserInfo"},
+		async : false,
+		success : function(json){
+			var json = JSON.parse(json);
+			if(json.msg) {
+				phonenumber = json.data.phonenumber;
+				judgeAttentionState(phonenumber,CompetitionId);
+			}
+			else{
+				$("#add").show();
+			}
+		}
+	});
+}
+
+function judgeAttentionState(phonenumber,CompetitionId) {
+	$.post("../../CompetitionServlet",{
+		method : "judgeAttentionState",
+		phonenumber : phonenumber,
+		CompetitionId : CompetitionId
+	}, function(json) {
+		console.log(json)
+		if(json==1){
+			$("#add").hide();
+			$("#yet").show();
+		}
+		else {
+			$("#add").show();
+			$("#yet").hide();
+		}
+		/*if(json){
+			//alert("关注成功！");
+			$("#add").hide();
+			$("#yet").show();
+		} else {
+			alert("关注失败！");
+		}*/
+		
+	})
+}
+function getUser() {
+	$.ajax({
+		type : "post",
+		url : "../../UserServlet",
+		data : {method : "getUserInfo"},
+		async : false,
+		success : function(json){
+			//console.log(json)
+			var json = JSON.parse(json);
+			if(json.msg==false) {
+				window.location.href="../login/login.jsp";
+			}
+			else {
+				phonenumber = json.data.phonenumber;
+			}
+		}
+	});
+}
+
+function getCompetitionId() {
+	var strHref = window.document.location.href;
+	var intPos = strHref.indexOf("=");
+	var strRight = strHref.substr(intPos + 1);
+	CompetitionId = strRight;
+	getCompetitionDetails(CompetitionId);
+}
+function getCompetitionDetails(CompetitionId){
+	$.post('../../CompetitionServlet', {
+		method : 'Web_getCompetitionDetails' ,
+		CompetitionId : CompetitionId
+	}, function(json) {
+		var data = JSON.parse(json);
+		//console.log(data);
+		var json = data.data;
+		competitionName = json.competitionName;
+		competitionSubject = json.competitionSubject;
+		 competitionGrade = json.competitionGrade;
+		money = json.competitionMoney;
+		showCompetitionInfo(json);
+	});
+}
+function comtype(a) {
+	if(a==0){
+		return "初赛";
+	}
+	if(a==1){
+		return "决赛";
+	}
+}
+function showCompetitionInfo(json) {
+	$('.sk-event4-1-detail-banner').append(
+			 '<img src="/2016-06-21_usgame_competition/images/main/'+json.competitionBigPic+'"  class="sk-event4-1-detail-img">'+
+			 /*'<div class="sk-event4-1-detail-banner-con">'+
+			 '<div class="sk-event4-1-detail-banner-min" >'+
+			 '<h1 class="banner-title"  id="competitionName"></h1>'+
+			 '<p class="para">主办方：<span >'+json.competitionSupportDesc+'</span></p>'+
+			 '<p class="para">报名时间：<span >'+json.competitionApplyStartTime+'  -  ' +json.competitionApplyEndTime+'</span></p>'+
+			 '</div>'+*/
+			 '</div>'	
+	);
+	var competitionForm = conversioncompetitionForm(json.competitionForm);
+	$('#competition_details').append(                       /*竞赛详情*/
+			'<p>'+json.competitionDetail+'</P>'
+	);
+	$('#competitionName').append(                     		/*竞赛名字*/     
+			json.competitionName
+	);
+	$('#competitionName1').append(                     		/*竞赛名字*/     
+			json.competitionName
+	);
+	
+	$('#competitionSubject').append(                        /*比赛科目*/
+			json.competitionSubject
+	);
+	$('#competitionType').append(							/*竞赛类型*/
+			comtype(json.competitionType)                            
+	);
+	$('#competitionSupportDesc').append(					/*主办方*/
+			json.competitionSupportDesc                    	
+	);
+	$('#date-start').append(                               /*报名开始时间*/
+			changeTime(json.competitionApplyStartTime)+'- 开始'
+	);
+	$('#date-end').append(
+			changeTime(json.competitionApplyEndTime)+'- 结束'				/*报名结束时间*/
+	);
+	$('#competitionMoney').append(         		 			/*比赛报名费用*/
+		json.competitionMoney + '元'
+	);
+	$('#test-start').append(
+			json.competitionTestTimeDes						/*竞赛时间*/
+	);
+	$('#competitionState').append(              			/*比赛状态*/
+			conversionstate(json.competitionState)
+	)
+	
+	$('#competitionForm').append(   
+			competitionForm
+	);
+	$('#competitionForm1').append(   
+			competitionForm
+	);
+	$('#competitionJoinerDes').append(                      /*参加人员描述*/
+			json.competitionJoinerDes
+	);
+	$('#competitionPrizeDes').append(						/*比赛奖项描述*/
+			json.competitionPrizeDes
+	);
+	$('#competitionApplyAddress').append(                   /*竞赛报名地址*/
+			json.competitionApplyAddress
+	);
+	$('#competitionTestAddress').append(					/*竞赛地点*/
+			json.competitionTestAddress
+	);
+}
+
+function apply(){
+	getUser();
+//	goUrl();
+	window.location.href="applyInfo.jsp?competitionName="+encodeURI(encodeURI(competitionName))+"&&competitionSubject="+encodeURI(encodeURI(competitionSubject))+"&&competitionGrade="+encodeURI(encodeURI(competitionGrade))+"&&CompetitionId="+encodeURI(encodeURI(CompetitionId))+"&&money="+money;
+}
+//function goUrl(){
+	
+function payAttention() {
+	getUser();
+	Addattention(phonenumber,CompetitionId);
+}
+
+
+function Addattention(phonenumber,CompetitionId) {
+	$.post("../../CompetitionServlet",{
+		method : "payAttention",
+		phonenumber : phonenumber,
+		CompetitionId : CompetitionId
+	}, function(json) {
+		if(json){
+			//alert("关注成功！");
+			$("#add").hide();
+			$("#yet").show();
+		} else {
+			alert("关注失败！");
+		}
+		
+	})
+}
+
+function delectAttention() {
+	getUser();
+	DelAttention(phonenumber,CompetitionId);
+}
+function DelAttention(phonenumber,CompetitionId) {
+	$.post("../../CompetitionServlet",{
+		method : "DelAttention",
+		phonenumber : phonenumber,
+		CompetitionId : CompetitionId
+	}, function(json) {
+		if(json){
+			//alert("取消关注成功！");
+			$("#add").show();
+			$("#yet").hide();
+		} else {
+			alert("取消关注失败！");
+		}
+	})
+}

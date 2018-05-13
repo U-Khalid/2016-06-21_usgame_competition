@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>培训订单</title>
+</head>
+<body>
+	<style type="text/css">
+.ti {
+	background-color: #F4F4F4;
+}
+</style>
+
+<div style="padding: 10px 60px 20px 60px; text-align:center;width:1100px;margin:0 auto  "> 
+<table class="easyui-datagrid" style="width:1000px;" id="train" url="../TrainServlet?method=getApplyList"
+		data-options="align:'center',
+					title : '培训订单',
+					border:true, 
+					fitColumns:true, 
+					striped:true, 
+					singleSelect:true,
+					pagination:true,
+					toolbar:'#tb3'
+					"
+					>   
+    <thead>   
+        <tr>   
+            <th data-options="field:'out_trade_no', width:150">编号</th>   
+            <th data-options="field:'name', width:50">姓名</th>   
+            <th data-options="field:'trainName', width:150">培训名称</th>
+            <th data-options="field:'trainSubject', width:100">科目</th>
+            <!-- <th data-options="field:'tTeacher_Name', width:100">教师</th> -->
+            <th data-options="field:'applyReportTime', width:80">报名时间</th>
+            <th data-options="field:'applyReportState', width:80">付款状态(1:已付，0:未付)</th>
+            <th data-options="field:'money', width:40">金额</th>
+            <th data-options="field:'methodWay', width:40">操作</th>
+        </tr>   
+    </thead>   
+</table>  
+<div id="tb3" style="padding:5px;height:auto">
+		<div>
+		   <!--  <a href="#" class="easyui-linkbutton" iconCls="icon-print" style="margin-left:10px" onclick="Export()">导出</a> -->
+		     <form name="formname" id="formid"  method="post"  action="../TrainServlet?method=exportTrainApply">   
+			Date From: <input class="easyui-datebox" style="width:100px" id="from" name="from">
+			To: <input class="easyui-datebox" style="width:100px" id="to" name="to">
+			搜索条件: 
+			<select class="easyui-combobox" panelHeight="auto" style="width:100px" id="options"  name ="options" >
+				<option value="2">培训名称</option>
+				<option value="1">注册号码</option>
+			</select>
+			<!-- <input name ="user_option" id="h1" > -->
+			<input class="easyui-textbox" style="width:150px;" id="info" name="info">
+			付款状态:
+			<select class="easyui-combobox" panelHeight="auto" style="width:100px" id="state" name="orderState">
+				<option value="2">全部</option>
+				<option value="0">未付款</option>
+				<option value="1">已付款</option>
+			</select>
+			<!-- <input name ="state" id="h2" > -->
+			<a href="#" class="easyui-linkbutton" iconCls="icon-search" style="margin-left:30px" onclick="searchtext()">Search</a>
+			   <input  type="submit"  value="导出" />
+			 </form>
+			 <form action="../uploadstudents" method="post" enctype="multipart/form-data">
+			   <input type="file" name="file" /><br>
+			   <input  type="submit"   value="导入现场报名学生"/>
+			 </form>
+		 <div id="win" class="easyui-window" title="订单详情" closed="true"
+			style="width: 800px; height: 350px;">
+			<form id="orderdetail" style="padding-top: 40px">
+				<table align="center" bordercolor="#d1d1d1" style="width: 80%">
+					<tr style="text-align: center">
+						<td class="ti">姓名：</td>
+						<td><input class="easyui-textbox" name="name"
+							data-options="multiline:true, disabled:false" readonly></input></td>
+						<td class="ti">身份证：</td>
+						<td><input class="easyui-textbox" name="idCard"
+							data-options="multiline:true, disabled:false" readonly></input></td>
+					</tr>
+					<tr style="text-align: center">
+						<td class="ti">学校：</td>
+						<td><input class="easyui-textbox" name="school"
+							data-options="multiline:true, disabled:false" readonly></input></td>
+						<td class="ti">年级：</td>
+						<td><input class="easyui-textbox" name="grade"
+							data-options="multiline:true, disabled:false" readonly></input></td>
+					</tr>
+					<tr style="text-align: center">
+						<td class="ti">培训名称：</td>
+						<td><input class="easyui-textbox" name="trainName"
+							data-options="multiline:true, disabled:false" readonly></input></td>
+						<td class="ti">培训科目：</td>
+						<td><input class="easyui-textbox" name="trainSubject"
+							data-options="multiline:true, disabled:false" readonly></input></td>
+					</tr>
+					<tr style="text-align: center">
+						<td class="ti">培训年级：</td>
+						<td><input class="easyui-textbox" name="trainGrade"
+							data-options="multiline:true, disabled:false" readonly></input></td>
+						<td class="ti">联系人：</td>
+						<td><input class="easyui-textbox" name="contectName"
+							data-options="multiline:true, disabled:false" readonly></input></td>
+					</tr>
+					<tr style="text-align: center">
+						<td class="ti">联系电话：</td>
+						<td><input class="easyui-textbox" name="contectPhone"
+							data-options="multiline:true, disabled:false" readonly></input></td>
+						<td class="ti">编号：</td>
+						<td><input class="easyui-textbox" name="out_trade_no"
+							data-options="multiline:true, disabled:false" readonly></input></td>
+					</tr>
+					<tr style="text-align: center">
+						<td class="ti">注册号码：</td>
+						<td><input class="easyui-textbox" name="phoneNumber"
+							data-options="multiline:true, disabled:false" readonly></input></td>
+						<td class="ti">金额：</td>
+						<td><input class="easyui-textbox" name="money"
+							data-options="multiline:true, disabled:false" readonly></input></td>
+					</tr>
+					<tr style="text-align: center">
+						<td class="ti">报名时间：</td>
+						<td><input class="easyui-textbox" name="applyReportTime"
+							data-options="multiline:true, disabled:false" readonly></input></td>
+					</tr>
+				</table>
+			</form>
+		</div> 
+	</div>
+	</div>
+	
+	
+ 	<script type="text/javascript">
+		$('#train').datagrid({
+			pageSize : 30
+		});
+
+	 	 function detail(idcard,trainName,trainSubject,trainGrade) {
+			$('#win').window('open');
+			$('#orderdetail').form(
+					'load',
+					'../TrainServlet?method=getTrainApplyDetailbackground&idcard='+idcard+'&trainName='+encodeURI(encodeURI(trainName))+'&trainSubject='+encodeURI(encodeURI(trainSubject))+'&trainGrade='+trainGrade);
+			} 
+
+function searchtext() {
+	var from = $('#from').textbox('getValue');
+	var to = $('#to').textbox('getValue');
+	var options = $("#options").combobox('getValue');
+	var Info = $('#info').textbox('getValue');
+	var orderState = $("#state").combobox('getValue');
+	/* alert(Info); */
+	if((from.length==0&&to.length==0)||(from.length!=0&&to.length!=0)) {
+		$('#train').datagrid({ url:"../TrainServlet?method=search&starttime="+from+"&endtime="+to+"&options="+options+"&Info="+encodeURI(encodeURI(Info))+"&orderState="+orderState,method:"post"});
+	}
+	else {
+		alert("请将时间填写完全！");
+	}
+} 
+
+</script>
+</body>
+</html>

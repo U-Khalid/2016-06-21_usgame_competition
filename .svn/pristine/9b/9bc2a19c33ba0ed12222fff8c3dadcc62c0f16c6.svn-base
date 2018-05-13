@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>增加培训</title>
+<meta name="content-type" content="text/html; charset=UTF-8">
+</head>
+<body>
+<form id="addtrainform" method="post"   action="../uploadTrain" enctype="multipart/form-data">
+	<div style="padding: 10px 60px 20px 60px; text-align:center; " >
+		
+			<table  border="1" align="center" bordercolor="#d1d1d1" style="border-collapse:collapse;width:800px; text-align:left;" >
+				<tr style="text-align:center">
+				<td style="display:none"><input class="easyui-textbox" name="tSubject_ID"
+						data-options="multiline:true" style="width: 400px; height: 80px;"></input></td>
+				<td colspan="2" style="background-color:#F4F4F4;height:40px;"><strong>培训信息表</strong></td>
+				</tr>
+				<tr>
+					<td class="ti">培训名字</td>
+					<td><input class="easyui-textbox" name="tSubject_CourseName" 
+						data-options="multiline:true, disabled:false"
+						style="width: 400px; height: 30px;" required="required"></input></td>
+				</tr>
+				<tr>
+					<td class="ti">培训Logo(大图-1920px*382px)</td>
+					<td>
+					<input type="file" name="tSubject_BigPic" /><br>
+						</td>
+				</tr>
+				<tr>
+					<td class="ti">培训Logo(小图-510px*420px)</td>
+					<td>
+					<input type="file" name="tSubject_PictureUrl" /><br>
+						</td>
+				</tr>
+				
+				<tr>
+					<td class="ti">培训机构ID</td>
+					<td><input class="easyui-textbox" name="tMechanism_ID"  id="tMechanism_ID"
+						data-options="multiline:true, disabled:false"
+						style="width: 400px; height: 30px;" required="required"></input>
+						<a onclick="getAllMechanism()">查看培训机构</a>
+						</td>
+				</tr>
+				
+				<tr>
+					<td class="ti">培训科目</td>
+					<td><input class="easyui-textbox" name="tSubject_Course"
+						data-options="multiline:true, disabled:false"
+						style="width: 400px; height: 30px;" required="required"></input></td>
+				</tr>
+				
+				
+				<tr>
+					<td class="ti">培训科目介绍</td>
+					<td><input class="easyui-textbox" name="tSubject_Detail"
+						data-options="multiline:true, disabled:false"
+						style="width: 400px; height: 80px;" required="required"></input></td>
+				</tr>
+				
+				<tr>
+					<td class="ti">培训开始报名时间</td>
+					<td><input class="easyui-datetimebox" value=""
+						style="width: 200px" name="tSubject_EnrollStart"
+						data-options="required:true"></td>
+				</tr>
+
+
+				<tr>
+					<td class="ti">培训结束报名时间</td>
+					<td><input class="easyui-datetimebox" value=""
+						style="width: 200px" name="tSubject_EnrollEnd"
+						data-options="required:true"></td>
+				</tr>
+				
+				<tr>
+					<td class="ti">培训开始时间</td>
+					<td><input class="easyui-datetimebox" value=""
+						style="width: 200px" name="tSubject_Start"
+						data-options="required:true"></td>
+				</tr>
+
+
+				<tr>
+					<td class="ti">培训结束时间</td>
+					<td><input class="easyui-datetimebox" value=""
+						style="width: 200px" name="tSubject_End"
+						data-options="required:true"></td>
+				</tr>
+				
+				<tr>
+					<td class="ti">培训形式</td>
+					<td><input class="easyui-textbox"
+						name="tSubject_Form" data-options="multiline:true"
+						style="width: 400px; height: 80px;"></input></td>
+				</tr>
+				
+				
+				<tr>
+					<td class="ti">培训年级</td>
+					<td><input class="easyui-textbox" data-options="prompt:'例：1,2,3(使用中文逗号)'"
+						name="tSubject_Grade" data-options="multiline:true"
+						
+						style="width: 400px; height: 80px;"></input></td>
+				</tr>
+				
+				<tr>
+					<td class="ti">每周培训次数</td>
+					<td><input class="easyui-textbox" data-options="prompt:'例：1'"
+						name="tSubject_Times" data-options="multiline:true,disabled:false"
+						style="width: 400px; height: 80px;"></input></td>
+				</tr>
+				
+				<tr>
+					<td class="ti">上课时间</td>
+					<td><input class="easyui-textbox"
+						name="tSubject_DetailTime" data-options="multiline:true"
+						style="width: 400px; height: 80px;"></input></td>
+				</tr>
+				
+				<tr>
+					<td class="ti">参与培训人员要求</td>
+					<td><input class="easyui-textbox"
+						name="tSubject_Personnel" data-options="multiline:true"
+						style="width: 400px; height: 80px;"></input></td>
+				</tr>
+				
+				
+				<tr>
+					<td class="ti">报名地点</td>
+					<td><input class="easyui-textbox" 
+						name="tSubject_EnrollAddress" data-options="multiline:true"
+						style="width: 400px; height: 80px;"></input></td>
+				</tr>
+				
+				
+			</table>
+			<input type="submit" value="提交" />
+	</div>
+</form>
+
+
+
+	<div id="wmechanism" title="培训机构" class="easyui-window" closed="true" style="padding: 10px 60px 20px 60px; text-align:center;width:1000px;margin:0 auto " > 
+		<table class="easyui-datagrid"  style="width:800px;" id="mechanism" 
+		
+		data-options="align:'center',
+					title : '机构详情',
+					border:true, 
+					fitColumns:true, 
+					striped:true, 
+					singleSelect:true,
+					pagination:true,
+					toolbar:'#tb6'
+					">
+					
+			<thead>
+				<tr>
+					<th data-options="field:'tMechanism_ID', width:40">编号</th>
+					<th data-options="field:'tMechanism_Name', width:80">机构名字</th>
+				</tr>
+			</thead>
+		</table>
+		<input type="submit" value="确定" onclick="getMechanismId()"/>
+
+	</div>
+
+<script type="text/javascript">
+	 $(document).ready(function(){
+		if(tSubject_ID!=0) {
+			$('#addtrainform').form('load', '../TrainServlet?method=detail&type=3&tSubject_ID='+tSubject_ID);
+		}
+	}) 
+	
+	function getAllMechanism(){
+		$('#wmechanism').window('open');
+		$('#mechanism').datagrid(
+				'load',
+				'../TrainServlet?method=getAllMechanism'
+			);
+	}
+	function getMechanismId(){
+		$("#tMechanism_ID").textbox("setValue", getMechanismSelect());
+		$('#wmechanism').window('close');
+	}
+	 
+	
+</script>
+</body>
+</html>

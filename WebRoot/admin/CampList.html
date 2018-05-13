@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>营地列表</title>
+</head>
+<body>
+<div style="padding: 10px 60px 20px 60px; text-align:center;width:1100px;margin:0 auto "> 
+<table class="easyui-datagrid" style="width:1000px;;" id="camp"
+url="../CampServlet?method=list&type=1"
+		data-options="align:'center',
+					title : '营地列表',
+					border:true, 
+					fitColumns:true, 
+					striped:true, 
+					singleSelect:true,
+					pagination:true,
+					toolbar:[{
+								iconCls: 'icon-edit',
+								handler: function(){toaddCamp()}
+							}]">
+			<thead>
+				<tr>
+					<th data-options="field:'campId', width:40">编号</th>
+					<th data-options="field:'camp_Name', width:200">名称</th>
+					<th data-options="field:'camp_Address', width:80">目的地</th>
+					<th data-options="field:'camp_startTime', width:80">报名开始时间</th>
+					<th data-options="field:'camp_endTime', width:80">报名结束时间</th>
+					<th data-options="field:'camp_theme', width:100">主题</th>
+					<th data-options="field:'camp_goTime', width:100">出发时间</th>
+					<th data-options="field:'camp_TimeLength', width:100">时长</th>
+					<th data-options="field:'camp_Money', width:100">费用</th>
+					<th data-options="field:'campmethodWay', width:100">操作</th>
+				</tr>
+			</thead>
+		</table>
+
+	</div>
+	<script type="text/javascript"> 
+$('#camp').datagrid(
+		{ pageSize: 30}
+	
+);
+function reviseCampState(obj) {
+	$.post("../CampServlet", {
+		method : "reviseCampState",
+		campId :getCampSelect(),
+		campstate : $(obj).val()
+	}, function(json) {
+		var data = JSON.parse(json);
+		alert(data.other);
+	});
+}
+</script>
+</body>
+</html>
